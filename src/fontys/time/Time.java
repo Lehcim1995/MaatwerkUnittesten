@@ -110,6 +110,24 @@ public class Time implements ITime {
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Time time = (Time) o;
+
+        // If time is same
+        return gc.getTimeInMillis() == time.gc.getTimeInMillis();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return gc.hashCode();
+    }
+
+    @Override
     public int difference(ITime time) {
         Time t = (Time) time;
         return (int) ((this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);

@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 public class TimeSpanTest
 {
+
     private Time beginTime;
     private Time endTime;
     private TimeSpan timeSpan;
@@ -55,7 +56,7 @@ public class TimeSpanTest
     @Test
     public void setBeginTime() throws Exception
     {
-        Time newBeginTime = (Time) beginTime.plus(1440);
+        Time newBeginTime = (Time) timeSpan.getEndTime().plus(-720); // A time earlyer then endtime
 
         timeSpan.setBeginTime(newBeginTime);
     }
@@ -63,39 +64,75 @@ public class TimeSpanTest
     @Test
     public void setEndTime() throws Exception
     {
-        Time newEndTime = (Time) endTime.plus(1440);
+        Time newEndTime = (Time) timeSpan.getBeginTime().plus(1440);
 
-        timeSpan.setBeginTime(newEndTime);
+        timeSpan.setEndTime(newEndTime);
 
     }
 
     @Test
     public void move() throws Exception
     {
-        fail();
+        int length = timeSpan.length();
+
+        timeSpan.move(50);
+
+        assertEquals(length, timeSpan.length());
     }
 
     @Test
     public void changeLengthWith() throws Exception
     {
-        fail();
+        int originalLength = timeSpan.length();
+        int changeWith = 100;
+
+        timeSpan.changeLengthWith(changeWith);
+
+        assertEquals(originalLength + changeWith, timeSpan.length());
     }
 
     @Test
     public void isPartOf() throws Exception
     {
-        fail();
+        int toAdd = timeSpan.length()/4;
+
+        TimeSpan partOf = new TimeSpan(timeSpan.getBeginTime().plus(toAdd), timeSpan.getEndTime());
+
+        assertTrue(partOf.isPartOf(timeSpan));
+        assertTrue(timeSpan.isPartOf(partOf));
+
+
+
+
     }
 
     @Test
     public void unionWith() throws Exception
     {
+
+        TimeSpan union = null;
+
+        timeSpan.unionWith(union);
+
+        // Check if intercepting
+        // CHeck if null
+
+        // When
+
+
         fail();
     }
 
     @Test
     public void intersectionWith() throws Exception
     {
+
+        TimeSpan intersect = null;
+
+        timeSpan.intersectionWith(intersect);
+
+
+
         fail();
     }
 
